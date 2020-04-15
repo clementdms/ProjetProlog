@@ -47,8 +47,9 @@ mesure(M):-
 % Ici on ressort l'Unite U et la quantité Q de la mesure M    
 mesure(M,M):-
     unite(M).
+
 mesure(M,Q,U):-
-    atom_concat(Q,U,M),
+    atom_concat(Q,U,M), 
     quantite(Q),
     unite(U).  
     
@@ -82,11 +83,15 @@ operation(Op,F1,F2,Res):-
     moins(Op),
     Res is F1-F2.
 operation(Op,F1,F2,Res):-
+    dif(F2,0),
     divise(Op),
     Res is F1/F2.
+operation(Op,_,0,0):-
+    divise(Op).
 operation(Op,F1,F2,Res):-
     fois(Op),
     Res is F1*F2.
+
     
 % Les multiplications / Divisions utiles pour les conversions 
 multiplieParMille(R,S):-S is R*1000.
